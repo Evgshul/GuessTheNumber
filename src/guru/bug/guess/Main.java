@@ -1,6 +1,7 @@
 package guru.bug.guess;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -102,7 +103,7 @@ public class Main {
         try (Scanner in = new Scanner(boardPath)) {
             while (in.hasNext()) {
                 GameResult result = new GameResult();
-                result.name = in.next();
+                result.name = in.nextLine();
                 result.attempts = in.nextInt();
                 result.time = in.nextLong();
                 list.add(result);
@@ -116,7 +117,8 @@ public class Main {
     private static void storeLeaderBoard() {
         try (Writer out = Files.newBufferedWriter(boardPath)) {
             for (GameResult r : leaderBoard) {
-                String line = String.format("%s %d %d\n", r.name, r.attempts, r.time);
+
+                String line = String.format("%s\n %d %d\n", r.name, r.attempts, r.time);
                 out.write(line);
             }
         } catch (IOException e) {
